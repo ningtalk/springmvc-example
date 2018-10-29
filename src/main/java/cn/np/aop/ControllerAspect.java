@@ -9,12 +9,14 @@ import com.google.common.base.Strings;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
 
 
 @Aspect
+@Component
 public class ControllerAspect {
 
     /**
@@ -39,6 +41,7 @@ public class ControllerAspect {
     private <T> T getObject(JoinPoint point, final Class<T> c) {
         Object[] args = point.getArgs();
         Optional<Object> optional = U.find(Arrays.asList(args), new Predicate<Object>() {
+            @Override
             public boolean test(Object o) {
                 return c.isInstance(o);
             }
