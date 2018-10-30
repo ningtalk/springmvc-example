@@ -1,12 +1,15 @@
 package cn.np.aop;
 
 
+import cn.np.util.RespUtils;
 import cn.np.vo.BaseReqVo;
+import com.github.underscore.Optional;
 import com.github.underscore.Predicate;
 import com.github.underscore.U;
-import com.github.underscore.Optional;
 import com.google.common.base.Strings;
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.springframework.stereotype.Component;
@@ -18,6 +21,18 @@ import java.util.Arrays;
 @Aspect
 @Component
 public class ControllerAspect {
+
+    /**
+     * 加密检查等
+     * @param point
+     * @return
+     */
+    @Around("@annotation(cn.np.aop.EnableEncryption)")
+    public Object enableEncryption(ProceedingJoinPoint point) {
+    //    throw new RuntimeException("test");
+        return RespUtils.ok();
+    }
+
 
     /**
      * 处理请求参数
